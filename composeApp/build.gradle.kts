@@ -11,13 +11,15 @@ kotlin {
     
     sourceSets {
         val desktopMain by getting
-        
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material3)
+
+            //TRY ONE TIME WITH MATERIAL 3 ENABLED AND THEN DISABLE IT
+           implementation(compose.material3)
+
+
             implementation(compose.ui)
-            implementation("media.kamel:kamel-image-default:1.0.0-beta.5")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -31,19 +33,15 @@ compose.desktop {
         mainClass = "MainKt"
 
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe, TargetFormat.Deb)
-            packageName = "test.cmp.gd"
-            packageVersion = "1.0.0"
-            description = "Compose Example App"
-            copyright = "© 2024 My Name. All rights reserved."
+            targetFormats(TargetFormat.Msi, TargetFormat.Exe)
         }
 
         buildTypes.release.proguard {
-          //  configurationFiles.from(project.file("compose-desktop.pro"))
             obfuscate.set(true)
-
+            //Setting this to false or optimize.set(false) doesn't change the result
 
         }
+
 
     }
 }
